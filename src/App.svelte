@@ -1,10 +1,19 @@
 <script>
+	import { onMount } from "svelte";
 	export let name;
+	export let date;
+
+	onMount(async () => {
+		const res = await fetch("/api/date");
+		const newDate = await res.text();
+		date = newDate;
+	});
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<p><center>{date ? date : 'Loading date...'}</center></p>
 </main>
 
 <style>
